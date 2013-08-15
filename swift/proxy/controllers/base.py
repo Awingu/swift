@@ -258,7 +258,7 @@ class Controller(object):
             return partition, nodes, container_count
         return None, None, None
 
-    def container_info(self, account, container, account_autocreate=False):
+    def container_info(self, account, container, account_autocreate=False, use_memcache=True):
         """
         Get container information and thusly verify container existance.
         This will also make a call to account_info to verify that the
@@ -273,7 +273,7 @@ class Controller(object):
         partition, nodes = self.app.container_ring.get_nodes(
                 account, container)
         path = '/%s/%s' % (account, container)
-        if self.app.memcache:
+        if self.app.memcache and use_memcache:
             cache_key = get_container_memcache_key(account, container)
             cache_value = self.app.memcache.get(cache_key)
             if isinstance(cache_value, dict):

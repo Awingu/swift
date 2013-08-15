@@ -501,7 +501,7 @@ class ObjectController(Controller):
         (container_partition, containers, _junk, req.acl,
          req.environ['swift_sync_key'], object_versions) = \
             self.container_info(self.account_name, self.container_name,
-                account_autocreate=self.app.account_autocreate)
+                account_autocreate=self.app.account_autocreate, use_memcache=False)
         if 'swift.authorize' in req.environ:
             aresp = req.environ['swift.authorize'](req)
             if aresp:
