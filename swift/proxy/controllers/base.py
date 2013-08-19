@@ -333,7 +333,7 @@ class Controller(object):
             except (Exception, Timeout):
                 self.exception_occurred(node, _('Container'),
                     _('Trying to get container info for %s') % path)
-        if self.app.memcache and result_code in (HTTP_OK, HTTP_NOT_FOUND):
+        if self.app.memcache and use_memcache and result_code in (HTTP_OK, HTTP_NOT_FOUND):
             if result_code == HTTP_OK:
                 cache_timeout = self.app.recheck_container_existence
             else:
